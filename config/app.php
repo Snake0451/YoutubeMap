@@ -212,6 +212,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
+        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
     ],
 
 ];

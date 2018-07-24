@@ -15,8 +15,8 @@ class CreateEmotionsTable extends Migration
     {
         Schema::create('emotions', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->smallIncrements('id');
-            $table->string('emotion');
+            $table->tinyIncrements('id');
+            $table->string('name');
             $table->timestamps();
         });
     }

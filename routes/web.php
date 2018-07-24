@@ -21,4 +21,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', function(){
     return view('admin/dashboard');
 });
-Route::get('/videos', 'YoutubeController@retrieveDataFromVideos');
+Route::get('/admin/listVideos', 'YoutubeController@listVideos');
+Route::get('/admin/addVideo', function () {
+    return view('admin/addVideo');
+});
+Route::get('/admin/deleteVideo', 'YoutubeController@deleteVideo');
+Route::get('/videos', function () {
+    return view('videos');
+});
+Route::get('/grabVideos', 'YoutubeController@retrieveDataFromVideos');
+Route::get('/admin/updateVideo', 'YoutubeController@updateVideoForm');
+Route::post('/admin/addVideo','YoutubeController@addVideo');
+Route::post('/admin/updateVideo', 'YoutubeController@updateVideo');

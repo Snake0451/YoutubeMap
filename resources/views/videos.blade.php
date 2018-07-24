@@ -16,7 +16,7 @@
       <input id="submit" type="button" value="Geocode">
 </div>
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.31&region=GB&language=ru-ru&key=AIzaSyCjptbERqG3kcBjppdA1zaYL6aGHLLsweA&libraries=places"></script>
-
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript">
 
 	var maps = [];
@@ -24,8 +24,8 @@
 	function initialize_0() {
 		var bounds = new google.maps.LatLngBounds();
 		var infowindow = new google.maps.InfoWindow();
-		var position = new google.maps.LatLng(40.7127753, -74.0059728);
-        var videos = {!! json_encode($videos) !!};
+        var position = new google.maps.LatLng(40.7127753, -74.0059728);
+        var markers = [];
 		var mapOptions_0 = {
             center: position,
             zoom: 8,
@@ -53,31 +53,57 @@
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status === 'OK') {
                     resultsMap.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: resultsMap,
-                        position: results[0].geometry.location
-                    });
                 } else {
                     alert('Geocode was not successful for the following reason: ' + status);
                 }
             });
         }
         
-        var marker, i;
-        
-        for(i in videos){
-             marker = new google.maps.Marker({
-                position: new google.maps.LatLng(videos[i].lat, videos[i].long),
-                map: map,
-                label: i
-            });
-
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                infowindow.setContent('<a href="' + videos[i].url + '"><h3>' + videos[i].title + '</h3></a>');
-                infowindow.open(map, marker);
+        map.addListener('dragend', function(){
+            //console.log(map.getCenter().lat() + '  ' + map.getCenter().lng())
+            var marker, i, videos;
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                url: '/getVideos',
+                type: 'POST',
+                data: {
+                        _token: CSRF_TOKEN,
+                        lat: map.getCenter().lat(),
+                        long: map.getCenter().lng()
+                    },
+                dataType: 'JSON',
+                success: function (data) {
+                    videos = data;
+                    setMapOnAll(null, markers);
+                    markers = [];
+                    
+                    for(i in videos){
+                        //console.log(videos[i]);
+                        marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(videos[i].lat, videos[i].long),
+                            map: map,
+                            label: i
+                        });
+                        
+                        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                            return function() {
+                            infowindow.setContent('<a href="' + videos[i].url + '"><h3>' + videos[i].title + '</h3></a>');
+                            infowindow.open(map, marker);
+                            }
+                        })(marker, i));
+                        
+                        markers.push(marker);
+                    }
                 }
-            })(marker, i));
+            });
+            
+
+        });
+    }
+
+    function setMapOnAll(map, markers) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
         }
     }
         

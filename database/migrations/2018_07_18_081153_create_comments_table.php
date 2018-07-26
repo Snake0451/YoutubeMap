@@ -21,7 +21,7 @@ class CreateCommentsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('video_id')->references('id')->on('videos');
             $table->text('comment_text');
-            $table->datetime('posted');
+            $table->timestamp('posted');
             $table->integer('parent_comment_id')->nullable()->unsigned();
             $table->foreign('parent_comment_id')->references('id')->on('comments');
             $table->timestamps();

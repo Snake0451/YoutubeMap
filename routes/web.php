@@ -18,18 +18,32 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin', function(){
-    return view('admin/dashboard');
-});
-Route::get('/admin/listVideos', 'YoutubeController@listVideos');
-Route::get('/admin/addVideo', function () {
-    return view('admin/addVideo');
-});
-Route::get('/admin/deleteVideo', 'YoutubeController@deleteVideo');
+
 Route::get('/videos', function () {
     return view('videos');
 });
-Route::get('/grabVideos', 'YoutubeController@retrieveDataFromVideos');
-Route::get('/admin/updateVideo', 'YoutubeController@updateVideoForm');
-Route::post('/admin/addVideo','YoutubeController@addVideo');
-Route::post('/admin/updateVideo', 'YoutubeController@updateVideo');
+Route::get('/grabVideos', 'VideoController@retrieveDataFromVideos');
+
+Route::middleware('admin')->prefix('/admin')->group(function () {
+    Route::get('/', function(){
+        return view('admin.dashboard');
+    })->name('dashboard');
+    Route::get('/listVideos', 'VideoController@listVideos')->name('listVideos');
+    Route::get('/addVideo', 'VideoController@addVideoForm');
+    Route::get('/updateVideo', 'VideoController@updateVideoForm')->name('updateVideoFrom');
+    Route::post('/addVideo','VideoController@addVideo')->name('addVideo');
+    Route::post('/updateVideo', 'VideoController@updateVideo')->name('updateVideo');
+    Route::post('/deleteVideo', 'VideoController@deleteVideo')->name('deleteVideo');
+    Route::get('/listEvents', 'EventController@index')->name('listEvents');
+    Route::get('/addEvent', function () {
+        return view('admin.addEvent');
+    });
+    Route::post('/addEvent', 'EventController@addEvent');
+    Route::post('/deleteEvent', 'EventController@deleteEvent')->name('deleteEvent');
+    Route::get('/addComment/{id}', 'CommentController@addCommentForm');
+    Route::get('/listComments/{id}', 'CommentController@listVideoComments');
+    Route::post('/deleteComment', 'CommentController@handleDelete');
+});
+Route::get('/videoComments/{id}', 'CommentController@videoComments');
+Route::post('/addComment', 'CommentController@handleAdd');
+Route::post('/updateComment/{id}', 'CommentController@updateComment');

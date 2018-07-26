@@ -24,6 +24,14 @@
                     {!!Form::textarea('description')!!}
                 </div>
                 <div class="form-group">
+                    {!!Form::label('event', 'Event:')!!}
+                    {!!Form::select('event_id', $event_list)!!}
+                </div>
+                <div class="form-group">
+                    {!!Form::label('emotion', 'Emotion:')!!}
+                    {!!Form::select('emotion_id', $emotions_list)!!}
+                </div>
+                <div class="form-group">
                     {!!Form::label('latitude', 'Latitude:')!!}
                     {!!Form::text('latitude')!!}
                 </div>

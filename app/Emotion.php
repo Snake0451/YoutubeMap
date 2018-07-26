@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Emotion extends Model
 {
     public function videos() {
-        return $this->belongsTo('App/Video');
+        return $this->hasMany('App/Video');
     }
 
     public function reactions() {
-        return $this->belongsTo('App/Reaction');
+        return $this->hasMany('App/Reaction');
     }
 }

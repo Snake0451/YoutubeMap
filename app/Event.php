@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+
+    protected $fillable = ['title'];
+
     public function videos() {
-        return $this->belongsTo('App/Video');
+        return $this->hasMany('App\Video');
     }
     
 }

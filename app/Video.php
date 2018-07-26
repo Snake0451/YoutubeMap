@@ -9,18 +9,18 @@ class Video extends Model
     protected $guarded = [];
 
     public function event() {
-        return $this->hasOne('App/Event');
+        return $this->belongsTo('App\Event');
     }
 
     public function emotion() {
-        return $this->hasOne('App/Emotion');
+        return $this->belongsTo('App\Emotion');
     }
 
     public function comments() {
-        return $this->hasMany('App/Comment');
+        return $this->hasMany('App\Comment');
     }
 
     public function reactions() {
-        return $this->hasOne('App/Reaction');
+        return $this->hasMany('App\Reaction');
     }
 }

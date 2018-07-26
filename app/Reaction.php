@@ -19,6 +19,6 @@ class Reaction extends Model
     }
 
     public function emotion() {
-        return $this->belongsTo('App/User');
+        return $this->hasOne('App/User');
     }
 }

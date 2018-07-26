@@ -21,9 +21,9 @@ class CreateVideosTable extends Migration
             $table->text('description')->nullable()->default(null);
             $table->datetime('time_published');
             $table->tinyInteger('emotion_id')->unsigned()->nullable()->default(null);
-            $table->foreign('emotion_id')->references('id')->on('emotions');
+            $table->foreign('emotion_id')->references('id')->on('emotions')->onDelete('set null')->onUpdate('cascade');
             $table->integer('event_id')->unsigned()->nullable()->default(null)->onDelete('null');
-            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('set null')->onUpdate('cascade');
             $table->float('latitude', 10, 7);
             $table->float('longitude', 10, 7);
             $table->string('author');

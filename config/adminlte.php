@@ -110,12 +110,12 @@ return [
     'menu' => [
         'MAIN NAVIGATION',
         [
-            'text' => 'Add Video',
-            'url'  => 'admin/addVideo',
+            'text' => 'Controll videos',
+            'url'  => 'admin/video',
         ],
         [
-            'text' => 'List Videos',
-            'url'  => 'admin/listVideos',
+            'text' => 'Controll events',
+            'url'  => 'admin/event',
         ],
         'ACCOUNT SETTINGS',
         [

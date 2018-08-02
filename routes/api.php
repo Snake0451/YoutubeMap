@@ -16,3 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/video', 'User\VideoController@index');
+
+Route::get('/video/{video_id}', 'User\VideoController@show');
+
+Route::get('/playlist', 'User\VideoController@playlist');
+
+Route::get('/event', 'User\EventController@index');

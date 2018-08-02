@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\addEventRequest;
 use App\Event;
 use App\Video;
 use \Illuminate\Database\QueryException;
@@ -10,7 +11,7 @@ use \Illuminate\Database\QueryException;
 
 class EventController extends Controller
 {
-    public function index ()
+    public function listEvents ()
     {
         $events = Event::all();
         foreach($events as $event)
@@ -22,14 +23,27 @@ class EventController extends Controller
         return view('admin.listEvents')->with('events', $events);
     }
 
-    public function addEvent ()
+    public function showEvent ($id)
     {
-        if(!isset($_POST['title']))
+        $event = Event::find($id);
+        $videos = $event->videos()->get();
+
+        if(isset($message))
+            return view('admin.showEvent')->with(['event' => $event, 'message' => $message, 'videos' => $videos]);
+        return view('admin.showEvent')->with(['event' => $event, 'videos' => $videos]);
+    }
+
+    public function addEvent (addEventRequest $request)
+    {
+        $validated = $request->validated();
+        $input = $request->all();
+
+        if(!isset($input['title']))
             return view('admin.addEvent')->with('message', 'Please, specify title of event.');
         try
         {
             Event::create(array(
-                'title' => $_POST['title'],
+                'title' => $input['title'],
             ));
         }
         catch(QueryException $e)
@@ -39,13 +53,13 @@ class EventController extends Controller
             else
                 return view('admin.addEvent')->with('message', $e->getMessage());
         }
-        return redirect()->route('listEvents');
+        return redirect()->route('listEvents')->with('message', 'Event has been added');
     }
 
-    public function deleteEvent () 
+    public function deleteEvent ($id) 
     {
-        $event = Event::find($_POST['id']);
+        $event = Event::find($id);
         $event->delete();
-        return redirect()->route('listEvents');
+        return redirect()->route('listEvents')->with('message', 'Event has been added');
     }
 }

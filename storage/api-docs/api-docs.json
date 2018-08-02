@@ -1,0 +1,114 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Example",
+        "version": "1.0.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/api/video": {
+            "get": {
+                "tags": [
+                    "video"
+                ],
+                "summary": "Display a listing of the resource.",
+                "description": "Returns list of all videos.",
+                "operationId": "api.video.index",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns list of videos."
+                    },
+                    "401": {
+                        "description": "Unauthorized action."
+                    }
+                }
+            }
+        },
+        "/api/video/{video_id}": {
+            "get": {
+                "tags": [
+                    "video"
+                ],
+                "summary": "Display a listing of the resource.",
+                "description": "Returns a video with specified ID.",
+                "operationId": "api.video.show",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "video_id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns video."
+                    },
+                    "401": {
+                        "description": "Unauthorized action."
+                    }
+                }
+            }
+        },
+        "/api/playlist": {
+            "get": {
+                "tags": [
+                    "video"
+                ],
+                "summary": "Display a listing of the resource.",
+                "description": "Returns collection of videos that matches event and/or emotions",
+                "operationId": "api.video.playlist",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "query",
+                        "description": "ID of event",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "emotion_id_array",
+                        "in": "query",
+                        "description": "JSON string with emotion ID's.",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns playlist."
+                    },
+                    "401": {
+                        "description": "Unauthorized action."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Error": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

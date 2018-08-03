@@ -23,6 +23,7 @@
                         <th>Longitude</th>
                         <th>Emotion</th>
                         <th>Event</th>
+                        <th>Thumbnail</th>
                     </tr>
                     @foreach($videos as $video)
                         <tr>
@@ -37,6 +38,7 @@
                             @else
                                 <td>No event</td>
                             @endif
+                            <td>{{ $video->thumbnail_url }}</td>
                             <td><form method="get" action="{{'/admin/video/' . $video->id}}">
                                 <button type="submit" class="btn btn-block btn-primary">Edit</button>
                             </form>

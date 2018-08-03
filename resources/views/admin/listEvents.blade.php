@@ -34,13 +34,15 @@
 </div>
 <div class="card">
     <div class="card-header">Add event</div>
-    <div class="card-body">
-        <form action="{{URL::current()}}" method="POST">
-            <div class="form-group">
+        <div class="card-body">
+            <form action="{{URL::current()}}" method="POST">
                 <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title" class="form-control" placeholder="Title">
-                </div>
-                <button type="submit" class="btn btn-block btn-primary">Add event</button>
-            </div>
-            @endsection
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="title" class="form-control" placeholder="Title">
+                    </div>
+            <button type="submit" class="btn btn-block btn-primary">Add event</button>
+        </div>
+    </div>
+</div>
+@endsection

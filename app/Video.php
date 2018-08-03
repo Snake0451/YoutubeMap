@@ -37,16 +37,20 @@ class Video extends Model
             if(!count($youtubeVideo['items']))
                 return 0;
 
+            $youtubeVideo = $youtubeVideo['items'][0];
+
             $this->youtube_id = $youtubeId;
-            $this->title = $youtubeVideo['items'][0]['snippet']['title'];
-            $this->description = $youtubeVideo['items'][0]['snippet']['description'];
+            $this->title = $youtubeVideo['snippet']['title'];
+            $this->description = $youtubeVideo['snippet']['description'];
             
-            $this->latitude = $youtubeVideo['items'][0]['recordingDetails']['location']['latitude'];
-            $this->longitude = $youtubeVideo['items'][0]['recordingDetails']['location']['longitude'];
+            $this->latitude = $youtubeVideo['recordingDetails']['location']['latitude'];
+            $this->longitude = $youtubeVideo['recordingDetails']['location']['longitude'];
 
-            $this->author = $youtubeVideo['items'][0]['snippet']['channelTitle'];
+            $this->author = $youtubeVideo['snippet']['channelTitle'];
 
-            $this->time_published = Carbon::parse($youtubeVideo['items'][0]['snippet']['publishedAt']);
+            $this->time_published = Carbon::parse($youtubeVideo['snippet']['publishedAt']);
+
+            $this->thumbnail_url = $youtubeVideo['snippet']['thumbnails']['medium']['url'];
 
             return $this;
         }

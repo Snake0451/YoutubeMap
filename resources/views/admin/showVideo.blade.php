@@ -14,6 +14,7 @@
                         <h3 class="box-title">Update video</h3>
                     </div>
                     <div class="box-body">
+                        <img src="{{ $video->thumbnail_url }}">
                         <form action={{ URL::current() }} method="post">
                             <input type="hidden" name="_method" value="put" />
                             @csrf

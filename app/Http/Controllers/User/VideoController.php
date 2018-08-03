@@ -99,21 +99,27 @@ class VideoController extends Controller
         $input = $requset->all();
 
         $videos = Video::all();
+        //$id_array = array();
+        $event_id = null;
 
-        if(isset($input['emotion_id_array']))
+        if(isset($input['emotion_id_array']) && isset($input['event_id']))
+        {
+            $id_array = json_decode($input['emotion_id_array'], true);
+            if($input['event_id'] != -1)
+                $event_id = $input['event_id'];
+            $videos = $videos->whereIn('emotion_id', $id_array['ids'])->where('event_id', $event_id);
+        }
+        else if(isset($input['emotion_id_array']))
         {
             $id_array = json_decode($input['emotion_id_array'], true);
             $videos = $videos->whereIn('emotion_id', $id_array['ids']);
         }
-
-        if(isset($input['event_id']))
+        else if(isset($input['event_id']))
         {
-                if($input['event_id']==-1)
-            $videos = $videos->where('event_id', null);
-                else
-            $videos = $videos->where('event_id', $input['event_id']);
+            if($input['event_id'] != -1)
+                $event_id = $input['event_id'];
+            $videos = $videos->where('event_id', $event_id);
         }
-
         return response()->json($videos);
     }
 }

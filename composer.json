@@ -9,6 +9,7 @@
         "alaouy/youtube": "^2.2",
         "cornford/googlmapper": "2.*",
         "darkaonline/l5-swagger": "5.6.*",
+        "deployer/deployer": "^6.2",
         "fideloper/proxy": "^4.0",
         "google/apiclient": "~2.0",
         "jeroennoten/laravel-adminlte": "^1.23",

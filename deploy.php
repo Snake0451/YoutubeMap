@@ -7,7 +7,7 @@ require 'recipe/laravel.php';
 set('application', 'my_project');
 
 // Project repository
-set('repository', 'https://github.com/Snake0451/YoutubeMap.git');
+set('repository', 'https://bitbucket.org/Snake0451/tinges/src/master/');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true); 
@@ -22,7 +22,7 @@ set('allow_anonymous_stats', false);
 
 // Hosts
 
-host('127.0.0.1')
+host('project.com')
     ->set('deploy_path', '~/{{application}}');    
     
 // Tasks
@@ -37,10 +37,6 @@ after('deploy:failed', 'deploy:unlock');
 // Migrate database before symlink new release.
 
 before('deploy:symlink', 'artisan:migrate');
-
-task('test', function () {
-    writeln('Hello, warudo!');
-});
 
 task('pwd', function () {
     $result = run('pwd');
